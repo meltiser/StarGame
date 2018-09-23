@@ -70,7 +70,6 @@ public class MainScreen extends Base2DScreen {
     public boolean touchDown(Vector2 touch, int pointer) {
         logo.setTouch(touch);
         if (exitButton.isMe(touch)) {
-            hide();
             Gdx.app.exit();
         }
         return false;
