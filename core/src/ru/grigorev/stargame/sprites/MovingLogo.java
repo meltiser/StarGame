@@ -1,4 +1,4 @@
-package ru.grigorev.stargame;
+package ru.grigorev.stargame.sprites;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;

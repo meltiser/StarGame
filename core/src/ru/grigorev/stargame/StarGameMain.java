@@ -2,7 +2,7 @@ package ru.grigorev.stargame;
 
 import com.badlogic.gdx.Game;
 
-import ru.grigorev.stargame.screen.MainScreen;
+import ru.grigorev.stargame.screen.MenuScreen;
 
 /**
  * @author Dmitriy Grigorev
@@ -10,6 +10,6 @@ import ru.grigorev.stargame.screen.MainScreen;
 public class StarGameMain extends Game {
     @Override
     public void create() {
-        setScreen(new MainScreen(this));
+        setScreen(new MenuScreen(this));
     }
 }
