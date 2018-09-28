@@ -1,11 +1,13 @@
 package ru.grigorev.stargame.base;
 
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.grigorev.stargame.math.Rect;
+import ru.grigorev.stargame.utils.Regions;
 
 public class Sprite extends Rect {
 
@@ -13,6 +15,10 @@ public class Sprite extends Rect {
     protected float scale = 1f;
     protected TextureRegion[] regions;
     protected int frame;
+    private boolean isDestroyed;
+
+    public Sprite() {
+    }
 
     public Sprite(TextureRegion region) {
         if (region == null) {
@@ -20,6 +26,10 @@ public class Sprite extends Rect {
         }
         regions = new TextureRegion[1];
         regions[0] = region;
+    }
+
+    public Sprite(TextureRegion region, int rows, int cols, int frames) {
+        this.regions = Regions.split(region, rows, cols, frames);
     }
 
     public void setHeightProportion(float height) {
@@ -42,17 +52,6 @@ public class Sprite extends Rect {
     }
 
     public boolean touchUp(Vector2 touch, int pointer) {
-
-        return false;
-    }
-
-    public boolean keyDown(int keycode) {
-
-        return false;
-    }
-
-
-    public boolean keyUp(int keycode) {
 
         return false;
     }
@@ -82,5 +81,17 @@ public class Sprite extends Rect {
                 scale, scale, // масштаб по x и y
                 angle // угол поворота
         );
+    }
+
+    public void destroy() {
+        this.isDestroyed = true;
+    }
+
+    public void flushDestroy() {
+        this.isDestroyed = false;
+    }
+
+    public boolean isDestroyed() {
+        return isDestroyed;
     }
 }
