@@ -6,24 +6,24 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-import ru.grigorev.stargame.Background;
-import ru.grigorev.stargame.ExitButton;
-import ru.grigorev.stargame.MovingLogo;
+import ru.grigorev.stargame.sprites.Background;
+import ru.grigorev.stargame.sprites.MyExitButton;
+import ru.grigorev.stargame.sprites.MovingLogo;
 import ru.grigorev.stargame.base.Base2DScreen;
 import ru.grigorev.stargame.math.Rect;
 
 /**
  * @author Dmitriy Grigorev
  */
-public class MainScreen extends Base2DScreen {
+public class MyScreen extends Base2DScreen {
     Background background;
-    ExitButton exitButton;
+    MyExitButton myExitButton;
     MovingLogo logo;
     Texture logoTexture;
     Texture backgroundTexture;
     Texture exitButtonTexture;
 
-    public MainScreen(Game game) {
+    public MyScreen(Game game) {
         super(game);
     }
 
@@ -34,7 +34,7 @@ public class MainScreen extends Base2DScreen {
         exitButtonTexture = new Texture("exit.png");
         logoTexture = new Texture("badlogic.jpg");
         background = new Background(new TextureRegion(backgroundTexture));
-        exitButton = new ExitButton(new TextureRegion(exitButtonTexture));
+        myExitButton = new MyExitButton(new TextureRegion(exitButtonTexture));
         logo = new MovingLogo(new TextureRegion(logoTexture));
     }
 
@@ -46,7 +46,7 @@ public class MainScreen extends Base2DScreen {
 
         batch.begin();
         background.draw(batch);
-        exitButton.draw(batch);
+        myExitButton.draw(batch);
         logo.draw(batch);
         batch.end();
     }
@@ -54,7 +54,7 @@ public class MainScreen extends Base2DScreen {
     @Override
     protected void resize(Rect worldBounds) {
         background.resize(worldBounds);
-        exitButton.resize(worldBounds);
+        myExitButton.resize(worldBounds);
         logo.resize(worldBounds);
     }
 
@@ -69,7 +69,7 @@ public class MainScreen extends Base2DScreen {
     @Override
     public boolean touchDown(Vector2 touch, int pointer) {
         logo.setTouch(touch);
-        if (exitButton.isMe(touch)) {
+        if (myExitButton.isMe(touch)) {
             Gdx.app.exit();
         }
         return false;
