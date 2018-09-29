@@ -1,6 +1,7 @@
 package ru.grigorev.stargame.sprites;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import ru.grigorev.stargame.base.ActionListener;
 import ru.grigorev.stargame.base.ScaledTouchUpButton;
@@ -15,7 +16,7 @@ public class ButtonPlay extends ScaledTouchUpButton {
 
     @Override
     public void resize(Rect worldBounds) {
-        /*setBottom(worldBounds.getBottom());
-        setLeft(worldBounds.getLeft());*/
+        setBottom(worldBounds.getBottom());
+        setLeft(worldBounds.getLeft());
     }
 }

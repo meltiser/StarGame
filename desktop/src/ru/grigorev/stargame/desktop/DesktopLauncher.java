@@ -3,6 +3,7 @@ package ru.grigorev.stargame.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
+import ru.grigorev.stargame.Star2DGame;
 import ru.grigorev.stargame.StarGameMain;
 
 public class DesktopLauncher {
@@ -12,6 +13,6 @@ public class DesktopLauncher {
         config.resizable = false;
         config.width = 300;
         config.height = (int) (config.width / aspect);
-        new LwjglApplication(new StarGameMain(), config);
+        new LwjglApplication(new Star2DGame(), config);
     }
 }

@@ -19,7 +19,7 @@ import ru.grigorev.stargame.sprites.Star;
 
 public class MenuScreen extends Base2DScreen implements ActionListener {
 
-    private static final int STAR_COUNT = 128;
+    private static final int STAR_COUNT = 256;
 
     Background background;
     Texture bg;
@@ -37,7 +37,7 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
     @Override
     public void show() {
         super.show();
-        bg = new Texture("background2048.jpg");
+        bg = new Texture("bg.png");
         background = new Background(new TextureRegion(bg));
         atlas = new TextureAtlas("textures/menuAtlas.tpack");
         buttonExit = new ButtonExit(atlas, this);
@@ -47,6 +47,7 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
             star[i] = new Star(atlas);
         }
     }
+
 
     @Override
     public void render(float delta) {

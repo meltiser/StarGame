@@ -46,17 +46,14 @@ public class Spaceship extends Sprite {
         return super.touchUp(touch, pointer);
     }
 
-    @Override
-    public boolean keyDown(int keycode) {
+    public void keyDown(int keycode) {
         if (keycode == Input.Keys.LEFT) v.add(-1f, 0f);
         if (keycode == Input.Keys.RIGHT) v.add(1f, 0f);
-        return super.keyDown(keycode);
     }
 
-    @Override
-    public boolean keyUp(int keycode) {
+
+    public void keyUp(int keycode) {
         v.set(0f, 0f);
-        return super.keyUp(keycode);
     }
 
     private void checkAndHandleBounds() {
