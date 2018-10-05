@@ -5,17 +5,24 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.grigorev.stargame.base.Ship;
+import ru.grigorev.stargame.math.Rect;
 import ru.grigorev.stargame.pool.BulletPool;
+import ru.grigorev.stargame.pool.ExplosionPool;
 
 
 public class Enemy extends Ship {
 
+    private enum State { DESCENT, FIGHT }
+
     private MainShip mainShip;
 
     private Vector2 v0 = new Vector2();
+    private Vector2 descentV = new Vector2(0, -0.15f);
 
-    public Enemy(BulletPool bulletPool, Sound shootSound, MainShip mainShip) {
-        super(bulletPool, shootSound);
+    private State state;
+
+    public Enemy(BulletPool bulletPool, ExplosionPool explosionPool, Sound shootSound, MainShip mainShip) {
+        super(bulletPool, explosionPool, shootSound);
         this.mainShip = mainShip;
         this.v.set(v0);
     }
@@ -24,11 +31,24 @@ public class Enemy extends Ship {
     public void update(float delta) {
         super.update(delta);
         pos.mulAdd(v, delta);
-
-        reloadTimer += delta;
-        if (reloadTimer >= reloadInterval) {
-            reloadTimer = 0f;
-            shoot();
+        switch (state) {
+            case DESCENT:
+                if (getTop() <= worldBounds.getTop()) {
+                    v.set(v0);
+                    state = State.FIGHT;
+                }
+                break;
+            case FIGHT:
+                reloadTimer += delta;
+                if (reloadTimer >= reloadInterval) {
+                    reloadTimer = 0f;
+                    shoot();
+                }
+                if (getBottom() < worldBounds.getBottom()) {
+                    boom();
+                    destroy();
+                }
+                break;
         }
     }
 
@@ -41,7 +61,8 @@ public class Enemy extends Ship {
             int bulletDamage,
             float reloadInterval,
             float height,
-            int hp
+            int hp,
+            Rect worldBounds
     ) {
         this.regions = regions;
         this.v0.set(v0);
@@ -53,6 +74,17 @@ public class Enemy extends Ship {
         this.hp = hp;
         setHeightProportion(height);
         reloadTimer = reloadInterval;
-        v.set(v0);
+        v.set(descentV);
+        state = State.DESCENT;
+        this.worldBounds = worldBounds;
+    }
+
+    public boolean isBulletCollision(Rect bullet) {
+        return !(
+                bullet.getRight() < getLeft()
+                || bullet.getLeft() > getRight()
+                || bullet.getBottom() > getTop()
+                || bullet.getTop() < pos.y
+                );
     }
 }
