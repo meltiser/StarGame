@@ -2,7 +2,6 @@ package ru.grigorev.stargame.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
 
+import ru.grigorev.stargame.base.ActionListener;
 import ru.grigorev.stargame.base.Base2DScreen;
 import ru.grigorev.stargame.math.Rect;
 import ru.grigorev.stargame.pool.BulletPool;
@@ -21,18 +21,18 @@ import ru.grigorev.stargame.pool.ExplosionPool;
 import ru.grigorev.stargame.sprites.Background;
 import ru.grigorev.stargame.sprites.Bullet;
 import ru.grigorev.stargame.sprites.Enemy;
-import ru.grigorev.stargame.sprites.Explosion;
 import ru.grigorev.stargame.sprites.MainShip;
 import ru.grigorev.stargame.sprites.MessageGameOver;
+import ru.grigorev.stargame.sprites.MessageNewGame;
 import ru.grigorev.stargame.sprites.Star;
 import ru.grigorev.stargame.utils.EnemiesEmitter;
 
 
-public class GameScreen extends Base2DScreen {
+public class GameScreen extends Base2DScreen implements ActionListener {
 
     private static final int STAR_COUNT = 64;
 
-    private enum State { PLAYING, GAME_OVER }
+    private enum State {PLAYING, GAME_OVER}
 
     Background background;
     Texture bg;
@@ -54,9 +54,10 @@ public class GameScreen extends Base2DScreen {
 
     ExplosionPool explosionPool;
 
-    State state;
+    State state = State.GAME_OVER; // TESTING
 
     MessageGameOver messageGameOver;
+    MessageNewGame messageNewGame;
 
     public GameScreen(Game game) {
         super(game);
@@ -84,7 +85,8 @@ public class GameScreen extends Base2DScreen {
         enemyPool = new EnemyPool(bulletPool, explosionPool, bulletSound, mainShip);
         enemiesEmitter = new EnemiesEmitter(enemyPool, atlas, worldBounds);
         messageGameOver = new MessageGameOver(atlas);
-        startNewGame();
+        messageNewGame = new MessageNewGame(atlas, this);
+        //startNewGame(); // TESTING
     }
 
     @Override
@@ -181,6 +183,7 @@ public class GameScreen extends Base2DScreen {
         explosionPool.drawActiveObjects(batch);
         if (state == State.GAME_OVER) {
             messageGameOver.draw(batch);
+            messageNewGame.draw(batch);
         }
         batch.end();
     }
@@ -228,6 +231,7 @@ public class GameScreen extends Base2DScreen {
         if (state == State.PLAYING) {
             mainShip.touchDown(touch, pointer);
         }
+        messageNewGame.touchDown(touch, pointer);
         return super.touchDown(touch, pointer);
     }
 
@@ -236,6 +240,7 @@ public class GameScreen extends Base2DScreen {
         if (state == State.PLAYING) {
             mainShip.touchUp(touch, pointer);
         }
+        messageNewGame.touchUp(touch, pointer);
         return super.touchUp(touch, pointer);
     }
 
@@ -247,5 +252,12 @@ public class GameScreen extends Base2DScreen {
         bulletPool.freeAllActiveObjects();
         explosionPool.freeAllActiveObjects();
         enemyPool.freeAllActiveObjects();
+    }
+
+    @Override
+    public void actionPerformed(Object src) {
+        if (src == messageNewGame) {
+            startNewGame();
+        }
     }
 }
