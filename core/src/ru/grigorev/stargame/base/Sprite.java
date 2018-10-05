@@ -1,7 +1,6 @@
 package ru.grigorev.stargame.base;
 
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -73,14 +72,16 @@ public class Sprite extends Rect {
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(
-                regions[frame],
-                getLeft(), getBottom(), // точка отрисовки
-                halfWidth, halfHeight, // точка вращения
-                getWidth(), getHeight(),
-                scale, scale, // масштаб по x и y
-                angle // угол поворота
-        );
+        if (!isDestroyed) {
+            batch.draw(
+                    regions[frame],
+                    getLeft(), getBottom(), // точка отрисовки
+                    halfWidth, halfHeight, // точка вращения
+                    getWidth(), getHeight(),
+                    scale, scale, // масштаб по x и y
+                    angle // угол поворота
+            );
+        }
     }
 
     public void destroy() {
