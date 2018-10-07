@@ -17,14 +17,12 @@ public class Base2DScreen implements Screen, InputProcessor {
     protected SpriteBatch batch;
 
     protected Game game;
-    private Rect screenBounds; // границы области рисования в пикселях
     protected Rect worldBounds; // граница проэкции мировых координат
-    private Rect glBounds; // дефолтные границы OpenGl
-
     protected Matrix4 worldToGl;
     protected Matrix3 screenToWorld;
-
     protected Vector2 touch;
+    private Rect screenBounds; // границы области рисования в пикселях
+    private Rect glBounds; // дефолтные границы OpenGl
 
     public Base2DScreen(Game game) {
         this.game = game;
@@ -40,7 +38,7 @@ public class Base2DScreen implements Screen, InputProcessor {
 
     @Override
     public void show() {
-        System.out.println("show");
+
     }
 
     @Override
@@ -60,53 +58,43 @@ public class Base2DScreen implements Screen, InputProcessor {
 
         MatrixUtils.calcTransitionMatrix(worldToGl, worldBounds, glBounds);
         batch.setProjectionMatrix(worldToGl);
-
         MatrixUtils.calcTransitionMatrix(screenToWorld, screenBounds, worldBounds);
-
         resize(worldBounds);
     }
 
     protected void resize(Rect worldBounds) {
-        System.out.println("resize width=" + worldBounds.getWidth() + " height=" + worldBounds.getHeight());
     }
 
     @Override
     public void pause() {
-        System.out.println("pause");
     }
 
     @Override
     public void resume() {
-        System.out.println("resume");
     }
 
     @Override
     public void hide() {
-        System.out.println("hide");
         dispose();
     }
 
     @Override
     public void dispose() {
-        System.out.println("dispose");
         batch.dispose();
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        System.out.println("keyDown keycode = " + keycode);
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
-        System.out.println("keyUp keycode = " + keycode);
         return false;
     }
 
     @Override
     public boolean keyTyped(char character) {
-        System.out.println("keyTyped character = " + character);
         return false;
     }
 
@@ -118,7 +106,6 @@ public class Base2DScreen implements Screen, InputProcessor {
     }
 
     public boolean touchDown(Vector2 touch, int pointer) {
-        System.out.println("touchDown touchX = " + touch.x + " touchY = "+ touch.y);
         return false;
     }
 
@@ -130,13 +117,11 @@ public class Base2DScreen implements Screen, InputProcessor {
     }
 
     public boolean touchUp(Vector2 touch, int pointer) {
-        System.out.println("touchDown touchX = " + touch.x + " touchY = "+ touch.y);
         return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        System.out.println("touchDragged screenX = " + screenX + " screenY = "+ screenY);
         return false;
     }
 

@@ -1,7 +1,6 @@
 package ru.grigorev.stargame.sprites;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.grigorev.stargame.base.Sprite;

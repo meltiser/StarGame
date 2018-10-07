@@ -1,7 +1,6 @@
 package ru.grigorev.stargame.base;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
@@ -23,18 +22,15 @@ public class Ship extends Sprite {
     protected TextureRegion bulletRegion;
     protected float bulletHeight;
     protected int bulletDamage;
-
-    private Sound shootSound;
-
     protected float reloadInterval;
     protected float reloadTimer;
-
     protected float damageAnimateInterval = 0.1f;
     protected float damageAnimateTimer;
-
     protected int hp;
+    private Sound shootSound;
 
-    public Ship(TextureRegion region, int rows, int cols, int frames, BulletPool bulletPool, ExplosionPool explosionPool, Sound shootSound) {
+    public Ship(TextureRegion region, int rows, int cols, int frames,
+                BulletPool bulletPool, ExplosionPool explosionPool, Sound shootSound) {
         super(region, rows, cols, frames);
         this.bulletPool = bulletPool;
         this.shootSound = shootSound;
@@ -66,7 +62,7 @@ public class Ship extends Sprite {
     public void shoot() {
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion, pos, bulletV, bulletHeight, worldBounds, bulletDamage);
-        shootSound.play(0.1f);
+        shootSound.play(0.15f);
     }
 
     public void boom() {

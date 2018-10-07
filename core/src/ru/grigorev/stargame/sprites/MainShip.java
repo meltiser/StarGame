@@ -3,15 +3,12 @@ package ru.grigorev.stargame.sprites;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-
 
 import ru.grigorev.stargame.base.Ship;
 import ru.grigorev.stargame.math.Rect;
 import ru.grigorev.stargame.pool.BulletPool;
 import ru.grigorev.stargame.pool.ExplosionPool;
-
 
 public class MainShip extends Ship {
 
@@ -24,6 +21,7 @@ public class MainShip extends Ship {
 
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
+    private boolean isNewGame = false;
 
     public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool, Sound shootSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2, bulletPool, explosionPool, shootSound);
@@ -37,6 +35,7 @@ public class MainShip extends Ship {
         this.bulletV.set(0, 0.5f);
         this.reloadInterval = 0.2f;
         this.hp = 100;
+        this.isNewGame = true;
         setHeightProportion(0.15f);
         flushDestroy();
     }
@@ -57,6 +56,10 @@ public class MainShip extends Ship {
         if (getLeft() < worldBounds.getLeft()) {
             setLeft(worldBounds.getLeft());
             stop();
+        }
+        if (isNewGame) {
+            this.pos.x = 0;
+            this.isNewGame = false;
         }
     }
 

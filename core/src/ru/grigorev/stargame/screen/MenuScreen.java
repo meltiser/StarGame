@@ -9,17 +9,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.grigorev.stargame.base.ActionListener;
-import ru.grigorev.stargame.sprites.Background;
 import ru.grigorev.stargame.base.Base2DScreen;
 import ru.grigorev.stargame.math.Rect;
-import ru.grigorev.stargame.sprites.ButtonExit;
-import ru.grigorev.stargame.sprites.ButtonPlay;
+import ru.grigorev.stargame.sprites.Background;
+import ru.grigorev.stargame.sprites.buttons.ButtonExit;
+import ru.grigorev.stargame.sprites.buttons.ButtonPlay;
 import ru.grigorev.stargame.sprites.Star;
-
 
 public class MenuScreen extends Base2DScreen implements ActionListener {
 
-    private static final int STAR_COUNT = 256;
+    private static final int STAR_COUNT = 128;
 
     Background background;
     Texture bg;
@@ -37,7 +36,7 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
     @Override
     public void show() {
         super.show();
-        bg = new Texture("bg.png");
+        bg = new Texture("background2048.jpg");
         background = new Background(new TextureRegion(bg));
         atlas = new TextureAtlas("textures/menuAtlas.tpack");
         buttonExit = new ButtonExit(atlas, this);
@@ -47,7 +46,6 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
             star[i] = new Star(atlas);
         }
     }
-
 
     @Override
     public void render(float delta) {
@@ -74,7 +72,6 @@ public class MenuScreen extends Base2DScreen implements ActionListener {
         buttonPlay.draw(batch);
         batch.end();
     }
-
 
     @Override
     protected void resize(Rect worldBounds) {
