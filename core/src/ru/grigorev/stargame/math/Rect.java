@@ -11,8 +11,6 @@ public class Rect {
     protected float halfWidth; // половина ширины
     protected float halfHeight; // половина высоты
 
-
-
     public Rect() {
 
     }
@@ -31,16 +29,32 @@ public class Rect {
         return pos.x - halfWidth;
     }
 
+    public void setLeft(float left) {
+        pos.x = left + halfWidth;
+    }
+
     public float getTop() {
         return pos.y + halfHeight;
+    }
+
+    public void setTop(float top) {
+        pos.y = top - halfHeight;
     }
 
     public float getRight() {
         return pos.x + halfWidth;
     }
 
+    public void setRight(float right) {
+        pos.x = right - halfWidth;
+    }
+
     public float getBottom() {
         return pos.y - halfHeight;
+    }
+
+    public void setBottom(float bottom) {
+        pos.y = bottom + halfHeight;
     }
 
     public float getHalfWidth() {
@@ -55,8 +69,16 @@ public class Rect {
         return halfWidth * 2f;
     }
 
+    public void setWidth(float width) {
+        this.halfWidth = width / 2f;
+    }
+
     public float getHeight() {
         return halfHeight * 2f;
+    }
+
+    public void setHeight(float height) {
+        this.halfHeight = height / 2f;
     }
 
     public void set(Rect from) {
@@ -65,41 +87,23 @@ public class Rect {
         halfHeight = from.halfHeight;
     }
 
-    public void setLeft(float left) {
-        pos.x = left + halfWidth;
-    }
-
-    public void setTop(float top) {
-        pos.y = top - halfHeight;
-    }
-
-    public void setRight(float right) {
-        pos.x = right - halfWidth;
-    }
-
-    public void setBottom(float bottom) {
-        pos.y = bottom + halfHeight;
-    }
-
-    public void setWidth(float width) {
-        this.halfWidth = width / 2f;
-    }
-
-    public void setHeight(float height) {
-        this.halfHeight = height / 2f;
-    }
-
     public void setSize(float width, float height) {
         this.halfWidth = width / 2f;
         this.halfHeight = height / 2f;
     }
 
     public boolean isMe(Vector2 touch) {
-        return touch.x >= getLeft() && touch.x <= getRight() && touch.y >= getBottom() && touch.y <= getTop();
+        return touch.x >= getLeft()
+                && touch.x <= getRight()
+                && touch.y >= getBottom()
+                && touch.y <= getTop();
     }
 
     public boolean isOutside(Rect other) {
-        return getLeft() > other.getRight() || getRight() < other.getLeft() || getBottom() > other.getTop() || getTop() < other.getBottom();
+        return getLeft() > other.getRight()
+                || getRight() < other.getLeft()
+                || getBottom() > other.getTop()
+                || getTop() < other.getBottom();
     }
 
     @Override

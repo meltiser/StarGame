@@ -9,16 +9,11 @@ import ru.grigorev.stargame.math.Rect;
 import ru.grigorev.stargame.pool.BulletPool;
 import ru.grigorev.stargame.pool.ExplosionPool;
 
-
 public class Enemy extends Ship {
 
-    private enum State { DESCENT, FIGHT }
-
     private MainShip mainShip;
-
     private Vector2 v0 = new Vector2();
     private Vector2 descentV = new Vector2(0, -0.15f);
-
     private State state;
 
     public Enemy(BulletPool bulletPool, ExplosionPool explosionPool, Sound shootSound, MainShip mainShip) {
@@ -82,9 +77,11 @@ public class Enemy extends Ship {
     public boolean isBulletCollision(Rect bullet) {
         return !(
                 bullet.getRight() < getLeft()
-                || bullet.getLeft() > getRight()
-                || bullet.getBottom() > getTop()
-                || bullet.getTop() < pos.y
-                );
+                        || bullet.getLeft() > getRight()
+                        || bullet.getBottom() > getTop()
+                        || bullet.getTop() < pos.y
+        );
     }
+
+    private enum State {DESCENT, FIGHT}
 }
